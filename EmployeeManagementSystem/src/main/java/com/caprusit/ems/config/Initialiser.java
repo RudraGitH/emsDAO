@@ -28,7 +28,7 @@ public class Initialiser implements WebApplicationInitializer {
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher",
 				new DispatcherServlet(dispatcherContext));
 		dispatcher.setLoadOnStartup(1);
-		dispatcher.addMapping("/");
+		dispatcher.addMapping("*.do");
 		
 	}
 

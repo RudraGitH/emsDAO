@@ -32,7 +32,7 @@ var app = angular.module('myApp', []);
 		/* function to get all employeeIds from jsp as array */
 		function getAllEmpIds() {
 
-			var response = $http.post('/EmployeeManagementSystem/getAllEmpIds');
+			var response = $http.post('/EmployeeManagementSystem/getAllEmpIds.do');
 			response.success(function(data, status, headers, config) {
 				$scope.jsondata = data;
 				json = data;
@@ -48,7 +48,7 @@ var app = angular.module('myApp', []);
 
 		/* function to get loggedIn empIds from jsp as array */
 		function getLoggedInEmpIds() {
-			var loggedInusers = $http.post('/EmployeeManagementSystem/getLoggedInEmpIds');
+			var loggedInusers = $http.post('/EmployeeManagementSystem/getLoggedInEmpIds.do');
 			loggedInusers.success(function(data, status, headers, config) {
 				jsonLoggedIn = data;
 				$scope.loggedInIds = data;
@@ -64,7 +64,7 @@ var app = angular.module('myApp', []);
 		/*function to get logout employee Ids as jsonArray */
 		function getLoggedOutEmpIds() {
 
-			var loggedOut = $http.post('/EmployeeManagementSystem/getLoggedOutEmpIds');
+			var loggedOut = $http.post('/EmployeeManagementSystem/getLoggedOutEmpIds.do');
 			loggedOut.success(function(data, status, headers, config) {
 				$scope.jsonLoggedOut = data;
 				jsonLoggedOut = data;
@@ -84,7 +84,7 @@ var app = angular.module('myApp', []);
 			$scope.successMessage = "";
 			if ($scope.empId.length == employeeIdLength) {
 				if (serachInArray($scope.empId, jsonLoggedOut)) {
-					$scope.invalidMsg = "you are visited";
+					$scope.invalidMsg = "You Are Visited Today";
 					$scope.showInvalidMsg = true;
 					$scope.cssClass = "error";
 					$scope.buttonDisable = true;
@@ -95,7 +95,7 @@ var app = angular.module('myApp', []);
 					$scope.showInvalidMsg = false;
 					$scope.cssClass = "ok";
 					$scope.buttonDisable = false;
-					$scope.buttonText = "Out";
+					$scope.buttonText = "Out-Time";
 					status=1;
 
 				} else if ($scope.empId.length == employeeIdLength) {
@@ -105,7 +105,7 @@ var app = angular.module('myApp', []);
 						$scope.showInvalidMsg = false;
 						$scope.cssClass = "ok";
 						$scope.buttonDisable = false;
-						$scope.buttonText = "in";
+						$scope.buttonText = "In-Time";
 						status=0;
 
 					} else {
@@ -114,7 +114,7 @@ var app = angular.module('myApp', []);
 						$scope.showInvalidMsg = true;
 						$scope.cssClass = "error";
 						$scope.buttonDisable = true;
-						$scope.buttonText = "in";
+						$scope.buttonText = "In-Time";
 
 					}
 

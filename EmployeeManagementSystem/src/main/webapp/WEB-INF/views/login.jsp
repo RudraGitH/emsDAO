@@ -9,7 +9,7 @@
 <body ng-controller="ValidController">
 
 	<div id="mainDiv">
-          <div id="logoDiv"><img src="images/welcome.jpg" id="logo"></div>
+          <div id="logoDiv"></div>
 		<form id="logForm" name="myForm" ng-submit="redirect(empId)"
 			method="post" novalidate align="center">
 
