@@ -32,7 +32,7 @@ var app = angular.module('myApp', []);
 		/* function to get all employeeIds from jsp as array */
 		function getAllEmpIds() {
 
-			var response = $http.post('/EmployeeManagementSystem/getAllEmpIds');
+			var response = $http.post('/EmployeeManagementSystem/getAllEmpIds.do');
 			response.success(function(data, status, headers, config) {
 				$scope.jsondata = data;
 				json = data;
@@ -48,7 +48,7 @@ var app = angular.module('myApp', []);
 
 		/* function to get loggedIn empIds from jsp as array */
 		function getLoggedInEmpIds() {
-			var loggedInusers = $http.post('/EmployeeManagementSystem/getLoggedInEmpIds');
+			var loggedInusers = $http.post('/EmployeeManagementSystem/getLoggedInEmpIds.do');
 			loggedInusers.success(function(data, status, headers, config) {
 				jsonLoggedIn = data;
 				$scope.loggedInIds = data;
@@ -64,7 +64,7 @@ var app = angular.module('myApp', []);
 		/*function to get logout employee Ids as jsonArray */
 		function getLoggedOutEmpIds() {
 
-			var loggedOut = $http.post('/EmployeeManagementSystem/getLoggedOutEmpIds');
+			var loggedOut = $http.post('/EmployeeManagementSystem/getLoggedOutEmpIds.do');
 			loggedOut.success(function(data, status, headers, config) {
 				$scope.jsonLoggedOut = data;
 				jsonLoggedOut = data;
@@ -83,29 +83,29 @@ var app = angular.module('myApp', []);
 
 			$scope.successMessage = "";
 			if ($scope.empId.length == employeeIdLength) {
-				if (serachInArray($scope.empId, jsonLoggedOut)) {
-					$scope.invalidMsg = "you are visited";
+				if (searchInArray($scope.empId, jsonLoggedOut)) {
+					$scope.invalidMsg = "You Are Visited Today";
 					$scope.showInvalidMsg = true;
 					$scope.cssClass = "error";
 					$scope.buttonDisable = true;
 					$scope.buttonText = "invalid";
 				
-				} else if (serachInArray($scope.empId, jsonLoggedIn)) {
+				} else if (searchInArray($scope.empId, jsonLoggedIn)) {
 					$scope.invalidMsg = "";
 					$scope.showInvalidMsg = false;
 					$scope.cssClass = "ok";
 					$scope.buttonDisable = false;
-					$scope.buttonText = "Out";
+					$scope.buttonText = "Out-Time";
 					status=1;
 
 				} else if ($scope.empId.length == employeeIdLength) {
-					if (serachInJsonObjectArray($scope.empId, json)) {
+					if (searchInJsonObjectArray($scope.empId, json)) {
 
 						$scope.invalidMsg = "";
 						$scope.showInvalidMsg = false;
 						$scope.cssClass = "ok";
 						$scope.buttonDisable = false;
-						$scope.buttonText = "in";
+						$scope.buttonText = "In-Time";
 						status=0;
 
 					} else {
@@ -114,7 +114,7 @@ var app = angular.module('myApp', []);
 						$scope.showInvalidMsg = true;
 						$scope.cssClass = "error";
 						$scope.buttonDisable = true;
-						$scope.buttonText = "in";
+						$scope.buttonText = "In-Time";
 
 					}
 
@@ -143,7 +143,7 @@ var app = angular.module('myApp', []);
 					cancelButtonText : "No",
 					closeOnConfirm : false,
 					closeOnCancel : false
-				}, function(isConfirm) {
+				}, function(isConfirm){
 					if (isConfirm) {
 						var object={id:empId,type:"login"};
 						var sendId = $http.post("/EmployeeManagementSystem/log.do",object);
@@ -166,10 +166,9 @@ var app = angular.module('myApp', []);
 					        }));*/
 					        swal("Problem Occured ","Try Again","error");
 					       });
-						
-						
-						
-					} else 
+							
+					}
+					else 
 						swal("You are rejected !", "try Again", "error");
 					
 				});
@@ -198,8 +197,8 @@ var app = angular.module('myApp', []);
 					              console.log("is numer if res: "+angular.isNumber(res));
 					              if(res == logoutSuccess){
 					            	 jsonLoggedOut[jsonLoggedOut.length] = empId;
-									$scope.jsonLoggedOut = jsonLoggedOut;
-					            	  swal("OK", "Success fully Logged-out", "success");
+					            	 	$scope.jsonLoggedOut = jsonLoggedOut;
+					            	 		swal("OK", "Success fully Logged-out", "success");
 					              }
 					              else
 					            	  swal("Problem occured!","Try Again","error");
@@ -230,7 +229,7 @@ var app = angular.module('myApp', []);
 
 
 		/* function for searching element in JsonObjectArray */
-		function serachInJsonObjectArray(key, arr) {
+		function searchInJsonObjectArray(key, arr) {
 			var length = arr.length;
 			for (var i = 0; i < length; i++) {
 				if (key == arr[i].empId){					
@@ -243,7 +242,7 @@ var app = angular.module('myApp', []);
 		}
 		
 		/* function for searching element in JsonArray */
-		function serachInArray(key, arr) {
+		function searchInArray(key, arr) {
 			var length = arr.length;
 			for (var i = 0; i < length; i++) {
 				if (key == arr[i]){

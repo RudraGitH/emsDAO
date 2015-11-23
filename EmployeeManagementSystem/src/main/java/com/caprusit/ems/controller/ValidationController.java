@@ -1,5 +1,6 @@
 package com.caprusit.ems.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,18 +13,22 @@ import com.caprusit.ems.service.ValidationService;
 public class ValidationController {
 	
 	@Autowired
-	ValidationService validationservice;
+	private ValidationService validationservice;
+	
+	private Logger logger=Logger.getLogger(ValidationController.class);
 	
 	@RequestMapping(value="/getAllEmpIds",method=RequestMethod.POST)
 	public @ResponseBody String getAllEmployeeIds(){
 		
+		logger.info("inside validationController getAllEmpIds()");
 		return validationservice.getAllEmployeeIds();
 		
 	}
 	
 	@RequestMapping(value="/getLoggedInEmpIds",method=RequestMethod.POST)
 	public @ResponseBody String getLoggedInEmployeeIds(){
-				
+		
+		logger.info("inside validationController getLoggedInEmployeeIds()");
 		return validationservice.getLoggedInEmoloyeeIds();
 		
 	}
@@ -31,8 +36,7 @@ public class ValidationController {
 	@RequestMapping(value="/getLoggedOutEmpIds",method=RequestMethod.POST)
 	public @ResponseBody String getLoggedOutEmployeeIds(){
 		
-		System.out.println("loggedin emp controller");
-			
+		logger.info("inside validationController getLoggedOutEmployeeIds()");			
 		return validationservice.getLoggedOutEmployeeIds();
 		
 	}

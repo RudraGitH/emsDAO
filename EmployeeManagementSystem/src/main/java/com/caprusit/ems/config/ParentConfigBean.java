@@ -13,6 +13,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
+import com.caprusit.ems.domain.Admin;
 import com.caprusit.ems.domain.Attendance;
 import com.caprusit.ems.domain.Employee;
 
@@ -49,7 +50,7 @@ public class ParentConfigBean {
 		
 		LocalSessionFactoryBean  factory= new LocalSessionFactoryBean ();
 		factory.setDataSource(dataSource());
-		factory.setAnnotatedClasses(Employee.class,Attendance.class);
+		factory.setAnnotatedClasses(Employee.class,Attendance.class,Admin.class);
 		Properties p=new Properties();
 		
 	    p.load(new ClassPathResource("hibernate.properties").getInputStream()); //load gives FileNotFound and IOException

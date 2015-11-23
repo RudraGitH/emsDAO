@@ -18,25 +18,27 @@ public class AttendanceController {
 	
 	@Autowired
 	private IAttendanceService attendanceService;
-
+	
 	private static Logger logger=Logger.getLogger(AttendanceController.class);
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String init(ModelMap modelMap) {
+
+		logger.info("inside attendance controlller init()");
 		
-		logger.info("in attendance controlller");
-      
 		return "login";
+		
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody Integer login(@RequestBody LoginTest test) {
-
-		System.out.println("testlogin" + test);
-
+		
+		logger.info("inside attendance controller login()");
 
 		return attendanceService.logInOrLogOut(test);
 		
 
 	}
+
+	
 }
