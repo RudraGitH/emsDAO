@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,8 +25,11 @@ public class ValidationDAOImpl implements ValidationDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	private Logger logger=Logger.getLogger(ValidationDAOImpl.class);
 	
 	public List<Object> getAllEmploeeIds() {
+		
+		logger.info("inside ValidationDAOImpl getAllEmploeeIds()");
 
 		Session session = sessionFactory.openSession();
 
@@ -44,7 +48,7 @@ public class ValidationDAOImpl implements ValidationDAO {
 
 		List<Object> allEmpData = allEmployeeIdsCriteria.list();
 		
-		
+		logger.info("inside ValidationDAOImpl getAllEmploeeIds(): all emploee ids size: "+allEmpData.size());
 
 		session.close();
 
@@ -54,6 +58,8 @@ public class ValidationDAOImpl implements ValidationDAO {
 
 	
 	public List<Object> getLoggedInEmployeeIds() {
+		
+		logger.info("inside ValidationDAOImpl getLoggedInEmployeeIds()");
 
 		/*to get logged-in emploee IDs we have to pass 2 */
 		return executeCriteria(2);
@@ -63,7 +69,9 @@ public class ValidationDAOImpl implements ValidationDAO {
 
 	public List<Object> getLoggedOutEmoloyeeIds() {
 		
+		logger.info("inside ValidationDAOImpl getLoggedOutEmoloyeeIds()");
 		/*to get logged-out emploee IDs we have to pass 1 */
+		
 		return executeCriteria(1);
 	}
 	

@@ -2,12 +2,19 @@ package com.caprusit.ems.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="PRAKASH.ADMIN_TABLE")
 public class Admin implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Id
 	private int adminId;
 	private String password;
 	

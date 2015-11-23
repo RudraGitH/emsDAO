@@ -24,6 +24,20 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- log 4j jar file -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<!-- ojdbc jar file -->
+		<dependency>
+    		<groupId>oracle.jdbc.driver</groupId>
+    		<artifactId>ojdbc14</artifactId>
+    		<version>10.2.0</version>
+		</dependency>
+
 		<!-- hibernate jar file -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

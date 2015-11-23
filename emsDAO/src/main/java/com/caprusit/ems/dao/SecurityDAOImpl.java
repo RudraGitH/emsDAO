@@ -1,8 +1,12 @@
 package com.caprusit.ems.dao;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
@@ -12,7 +16,6 @@ import org.springframework.stereotype.Repository;
 
 import com.caprusit.ems.domain.Admin;
 import com.caprusit.ems.domain.Employee;
-import com.caprusit.ems.domain.User;
 
 @Repository
 public class SecurityDAOImpl implements ISecurityDAO{
@@ -20,28 +23,28 @@ public class SecurityDAOImpl implements ISecurityDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	private Logger logger=Logger.getLogger(SecurityDAOImpl.class);	
 	
-	public String login(Object object) {
-		
-		if(object.getClass().equals(com.caprusit.ems.domain.User.class)){
+	public String login(Admin admin) {		
 			
 			System.out.println("in dao");
 			
-			User user=(User)object;
 			Session session=sessionFactory.openSession();
-			Criteria criteria=session.createCriteria(Employee.class);
-			Criterion criterion=Restrictions.eq("employeeId", user.getEid());
-			Projection projection=Projections.property("firstName");
+			
+			Criteria criteria=session.createCriteria(Admin.class);
+			Criterion criterion=Restrictions.eq("adminId",admin.getAdminId());
+			Projection projection=Projections.property("password");
 			criteria.add(criterion);
 			criteria.setProjection(projection);
-			Object obj=criteria.list();
 			
-			System.out.println("object read from db: "+obj);
 			
-		}else{
+			List<String> passwordList=criteria.list();
 			
-		}
-		return null;
+			logger.info("admin password: "+ passwordList);
+			
+			String adminPass=(passwordList.size() > 0) ? passwordList.get(0).toString():"notValid";
+		
+		    return adminPass;
 		
 	}
 
@@ -56,5 +59,23 @@ public class SecurityDAOImpl implements ISecurityDAO{
 		
 		return null;
 	}
+
+
+	public int saveEmployee(Employee emp) {
+		
+		try {
+			Session session=sessionFactory.openSession();
+			Transaction ts=session.beginTransaction();
+			session.saveOrUpdate(emp);
+			ts.commit();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return 0;
+		}
+		
+		return 1;
+	}
+
 
 }
